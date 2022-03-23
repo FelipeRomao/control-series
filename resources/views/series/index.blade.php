@@ -22,7 +22,9 @@
             >
                 @csrf
                 @method('DELETE')
-                <button class="btn btn-danger btn-sm">Excluir</button>
+                <button class="btn btn-danger btn-sm">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
             </form>
         </li>
         @endforeach
