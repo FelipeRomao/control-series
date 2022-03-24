@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Episode;
 use App\Http\Requests\SeriesFormRequest;
+use App\Season;
 use App\Serie;
+use App\Services\SeriesCreator;
 use Illuminate\Http\Request;
 
 class SeriesController extends Controller
@@ -27,28 +30,38 @@ class SeriesController extends Controller
         return view('series.create');
     }
 
-    public function store(SeriesFormRequest $request)
+    public function store(SeriesFormRequest $request, SeriesCreator $seriesCreator)
     {
-        $serie = Serie::create(['name'=> $request->name]);
-        $seasons = $request->am_seasons;
-        $episodes = $request->ep_season;
+        $serie = $seriesCreator->createSerie(
+            $request->name,
+            $request->am_seasons,
+            $request->ep_season
+        );
 
-        for($i = 1; $i <= $seasons; $i++) {
-            $season = $serie->seasons()->create(['number' => $i]);
+        $request->session()
+            ->flash(
+                'message',
+                "Série {$serie->name} e suas temporadas e episódios criada com sucesso #{$serie->id}"
+            );
 
-            for($j = 1; $j <= $episodes; $j++) {
-                $season->episodes()->create(['number' => $j]);
-            }
-        }
-
-        $request->session()->flash('message', "Série {$serie->name} e suas temporadas e episódios criada com sucesso #{$serie->id}");
         return redirect()->route('series-list');
     }
 
     public function destroy(Request $request)
     {
-        Serie::destroy($request->id);
-        $request->session()->flash('message', "Série com ID #{$request->id} removida com sucesso!");
+        $serie = Serie::find($request->id);
+        $nameSerie = $serie->name;
+
+        $serie->seasons->each(function (Season $season) {
+            $season->episodes()->each(function (Episode $episode) {
+                $episode->delete();
+            });
+
+            $season->delete();
+        });
+
+        $serie->delete();
+        $request->session()->flash('message', "Série {$nameSerie} removida com sucesso!");
         return redirect()->route('series-list');
     }
 }

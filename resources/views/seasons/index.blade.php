@@ -8,7 +8,7 @@
     <ul class="list-group">
         @foreach ($seasons as $season)
             <li class="list-group-item">
-                {{ $season->number  }}
+                Season {{ $season->number  }}
             </li>
         @endforeach
     </ul>
