@@ -18,7 +18,7 @@
         <li class="list-group-item d-flex justify-content-between align-content-center">
             {{ $serie->name }}
 
-            <div class="d-flex">
+            <div class="d-flex" style="gap:0.5rem">
                 <a href="/series/{{ $serie->id }}/seasons" class="btn btn-info btn-sm">
                     <i class="fa fa-external-link" ></i>
                 </a>
