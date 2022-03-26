@@ -5,11 +5,7 @@
 @endsection
 
 @section('content')
-    @if(!empty($message))
-    <div class="alert alert-success">
-        {{ $message }}
-    </div>
-    @endif
+    @include('message',['message'=> $message])
 
     <a href="{{ route('form-create-serie') }}" class="btn btn-dark mb-3">Add</a>
 

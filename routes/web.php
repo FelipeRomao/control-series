@@ -7,3 +7,6 @@ Route::delete('/series/{id}', 'SeriesController@destroy');
 Route::post('/series/{id}/updateName', 'SeriesController@updateName');
 
 Route::get('/series/{serieId}/seasons', 'SeasonsController@index');
+
+Route::get('/seasons/{season}/episodes', 'EpisodesController@index');
+Route::post('/seasons/{season}/episodes/watch', 'EpisodesController@watch');
