@@ -11,12 +11,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar navbar-light bg-secondary mb-5">
-            <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1">@yield('header')</span>
-            </div>
-        </nav>
+    <div class="container py-4">
+        <header class="pb-3 mb-4 border-bottom">
+            <span class="navbar-brand mb-0 h1">@yield('header')</span>
+        </header>
 
         @yield('content')
     </div>

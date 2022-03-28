@@ -7,7 +7,9 @@
 @section('content')
     @include('message',['message'=> $message])
 
-    <a href="{{ route('form-create-serie') }}" class="btn btn-dark mb-3">Add</a>
+    <a href="{{ route('form-create-serie') }}" class="btn btn-dark mb-3">
+        <i class="fa fa-plus-circle" style="margin-right: 6px" aria-hidden="true"></i> Add
+    </a>
 
     <ul class="list-group">
         @foreach ($series as $serie)
@@ -25,11 +27,11 @@
             </div>
 
             <div class="d-flex" style="gap:0.5rem">
-                <button class="btn btn-info btn-sm mr-1" onclick="toggleInput({{ $serie->id }})">
+                <button class="btn btn-primary btn-sm mr-1" onclick="toggleInput({{ $serie->id }})">
                     <i class="fa fa-edit"></i>
                 </button>
 
-                <a href="/series/{{ $serie->id }}/seasons" class="btn btn-info btn-sm">
+                <a href="/series/{{ $serie->id }}/seasons" class="btn btn-primary btn-sm">
                     <i class="fa fa-external-link" ></i>
                 </a>
 

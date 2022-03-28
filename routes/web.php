@@ -10,3 +10,14 @@ Route::get('/series/{serieId}/seasons', 'SeasonsController@index');
 
 Route::get('/seasons/{season}/episodes', 'EpisodesController@index');
 Route::post('/seasons/{season}/episodes/watch', 'EpisodesController@watch');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/begin', 'BeginController@index');
+Route::post('/begin', 'BeginController@signIn');
+
+Route::get('/signUp', 'RegisterController@create');
+Route::post('/signUp', 'RegisterController@store');
+
