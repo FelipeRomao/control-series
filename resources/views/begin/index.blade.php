@@ -18,7 +18,7 @@
         <main class="form-signin">
             <form method="post">
                 @csrf
-                <img class="mb-4" src="https://www.freepnglogos.com/uploads/company-logo-png/company-logo-transparent-png-19.png" alt="" height="140" width="200">
+                <img src="{{ URL::to('icons/film.png') }}" alt="" class="mb-4" height="80" width="80">
                 <h1 class="h3 mb-3 fw-normal">Please log in</h1>
 
                 <div class="form-floating">
@@ -35,6 +35,7 @@
                         <input type="checkbox" value="remember-me"> Remember me
                     </label>
                 </div>
+
                 <button class="w-100 btn btn-lg btn-primary mb-3" type="submit">Sign in</button>
                 <a class="w-100 btn btn-lg btn-secondary" href="/signUp">Sign up</a>
             </form>
