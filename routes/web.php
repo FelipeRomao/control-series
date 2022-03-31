@@ -26,3 +26,16 @@ Route::get('logout', function () {
     return redirect('/begin');
 });
 
+Route::get('/show-email', function () {
+    return new \App\Mail\NewSerie('The Vikings', 12,3);
+});
+
+Route::get('/send-email', function () {
+
+    $email = new \App\Mail\NewSerie('The Vikings', 12,3);
+    $user = (object)['email' => 'feliperomao@gmail.com', 'name' => 'Felipe Romao'] ;
+
+    return 'Email sent :)';
+
+});
+

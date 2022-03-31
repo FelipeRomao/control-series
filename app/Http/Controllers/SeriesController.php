@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\SeriesFormRequest;
+use App\Mail\NewSerie;
 use App\Serie;
 use App\Services\SerialRemover;
 use App\Services\SeriesCreator;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class SeriesController extends Controller
 {
@@ -38,6 +41,17 @@ class SeriesController extends Controller
             $request->am_seasons,
             $request->ep_season
         );
+
+        // send e-mail
+        $users = User::all();
+        foreach($users as $user) {
+            $email = new NewSerie($request->name, $request->am_seasons, $request->ep_season);
+            $email->subject('New serie registered');
+
+            Mail::to($user)->send($email);
+            sleep(5);
+        }
+        // end send e-mail
 
         $request->session()
             ->flash(
