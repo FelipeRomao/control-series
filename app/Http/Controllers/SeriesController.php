@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 
+use App\Events\NewSerie;
 use App\Http\Requests\SeriesFormRequest;
-use App\Mail\NewSerie;
 use App\Serie;
 use App\Services\SerialRemover;
 use App\Services\SeriesCreator;
 
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class SeriesController extends Controller
 {
@@ -42,18 +40,12 @@ class SeriesController extends Controller
             $request->ep_season
         );
 
-        // send e-mail
-        $users = User::all();
-        foreach($users as $index => $user) {
-            $multiplier = $index + 1;
+        $eventNewSerie = new NewSerie
+            ($request->name,
+            $request->am_seasons,
+            $request->ep_season);
 
-            $email = new NewSerie($request->name, $request->am_seasons, $request->ep_season);
-            $email->subject('New serie registered');
-
-            $when = now()->addSecond($multiplier * 10);
-            Mail::to($user)->later($when, $email);
-        }
-        // end send e-mail
+        event($eventNewSerie);
 
         $request->session()
             ->flash(
