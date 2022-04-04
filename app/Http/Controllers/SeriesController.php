@@ -44,12 +44,14 @@ class SeriesController extends Controller
 
         // send e-mail
         $users = User::all();
-        foreach($users as $user) {
+        foreach($users as $index => $user) {
+            $multiplier = $index + 1;
+
             $email = new NewSerie($request->name, $request->am_seasons, $request->ep_season);
             $email->subject('New serie registered');
 
-            Mail::to($user)->send($email);
-            sleep(5);
+            $when = now()->addSecond($multiplier * 10);
+            Mail::to($user)->later($when, $email);
         }
         // end send e-mail
 
