@@ -7,11 +7,15 @@ use Illuminate\Support\Facades\DB;
 
 class SeriesCreator
 {
-    public function createSerie(string $name, int $am_seasons, int $ep_season): Serie
+    public function createSerie(string $name, int $am_seasons, int $ep_season, ?string $cover): Serie
     {
 
         DB::beginTransaction();
-        $serie = Serie::create(['name'=> $name]);
+        $serie = Serie::create([
+            'name'=> $name,
+            'cover'=> $cover
+        ]);
+
         $this->createSeasons($am_seasons, $serie, $ep_season);
         DB::commit();
 

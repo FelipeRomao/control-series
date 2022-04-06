@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Events\NewSerie;
+use App\Events\SerieDeleted;
+use App\Listeners\DeleteCoverSerie;
 use App\Listeners\LogNewSerieRegistered;
 use App\Listeners\SendEmailNewSerieRegistered;
 
@@ -23,7 +25,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         NewSerie::class => [
             SendEmailNewSerieRegistered::class,
-            LogNewSerieRegistered::class
+            LogNewSerieRegistered::class,
+        ],
+        SerieDeleted::class => [
+            DeleteCoverSerie::class
         ]
     ];
 

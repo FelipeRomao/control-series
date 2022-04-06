@@ -7,7 +7,7 @@
 @section('content')
     @include('errors', ['errors' => $errors])
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col col-8">
@@ -25,7 +25,12 @@
                 <input type="number" class="form-control" name="ep_season" id="ep_season" />
             </div>
         </div>
-
+        <div class="row mt-2">
+            <div class="col col-12">
+                <label for="cover">Capa</label>
+                <input class="form-control" type="file" id="cover" name="cover" />
+            </div>
+        </div>
 
         <button class="btn btn-primary mt-3">Create</button>
     </form>

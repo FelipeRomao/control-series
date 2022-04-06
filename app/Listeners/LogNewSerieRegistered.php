@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\NewSerie;
-use Illuminate\Queue\InteractsWithQueue;
+
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class LogNewSerieRegistered implements ShouldQueue

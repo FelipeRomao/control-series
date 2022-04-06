@@ -16,3 +16,15 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/user/{id}', function ($id) {
+    return new \App\Http\Resources\UserResource(\App\User::findOrFail($id));
+});
+
+Route::get('/users', function () {
+    return \App\Http\Resources\UserResource::collection(\App\User::all());
+});
+
+Route::get('/series', function () {
+    return \App\Http\Resources\SerieResource::collection(\App\Serie::all());
+});
